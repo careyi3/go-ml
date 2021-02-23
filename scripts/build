@@ -1,0 +1,4 @@
+#! /bin/bash
+
+rm ./bin/linear_regression
+go build -o ./bin/linear_regression ./cmd/linear_regression/

@@ -1,0 +1,5 @@
+#! /bin/bash
+
+rm ./bin/linear_regression
+go build -o ./bin/linear_regression ./cmd/linear_regression/
+./bin/linear_regression -in ./test_data/input.csv -out ./test_data

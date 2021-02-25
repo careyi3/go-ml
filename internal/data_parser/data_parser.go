@@ -1,6 +1,8 @@
 package data_parser
 
 import (
+	"encoding/json"
+	"hash/fnv"
 	"math/rand"
 	"strconv"
 	"time"
@@ -10,7 +12,10 @@ import (
 )
 
 func ParseData(data [][]string) (*models.ParsedInputs, error) {
-	data = shuffle(data)
+	data, err := shuffle(data)
+	if err != nil {
+		return nil, err
+	}
 	rows := len(data)
 	cols := len(data[0])
 
@@ -64,10 +69,17 @@ func fetchFlatInputsAndOutputs(matrix [][]string, num_inputs int) ([]float64, []
 	return inputs, outputs, nil
 }
 
-func shuffle(matrix [][]string) [][]string {
-	rand.Seed(time.Now().UnixNano())
+func shuffle(matrix [][]string) ([][]string, error) {
+	h := fnv.New64()
+	json, err := json.MarshalIndent(matrix, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	h.Write(json)
+	rand.Seed(int64(h.Sum64()))
 	rand.Shuffle(len(matrix), func(i, j int) { matrix[i], matrix[j] = matrix[j], matrix[i] })
-	return matrix
+	return matrix, nil
 }
 
 func createDataSet(data [][]string) (*models.DataSet, error) {

@@ -19,9 +19,9 @@ var inputFlag string
 var outputFlag string
 
 func init() {
-	flag.Float64Var(&alphaFlag, "a", 0.5, "Learning Rate (alpha)")
-	flag.Float64Var(&lambdaFlag, "l", 0.01, "Regularization Constant (lambda)")
-	flag.IntVar(&itersFlag, "i", 5000, "# of iterations of gradient descent for learning")
+	flag.Float64Var(&alphaFlag, "a", 0.9, "Learning Rate (alpha)")
+	flag.Float64Var(&lambdaFlag, "l", 0.0, "Regularization Constant (lambda)")
+	flag.IntVar(&itersFlag, "i", 50000, "# of iterations of gradient descent for learning")
 	flag.StringVar(&inputFlag, "in", "./input.csv", "Input CSV file")
 	flag.StringVar(&outputFlag, "out", "./", "Output directory")
 }
